@@ -8,10 +8,7 @@ const Search = () => {
     // >
 
      <div className="min-h-screen flex flex-col items-center bg-gray-100">
-      <h2 className=" font-bold mb-6 p-3 text-gray-800 self-start">Shopping Cart</h2>
-
-
-
+     
       <div className="bg-white p-6 w-full max-w-lg rounded-lg shadow-lg">
         {/* Search Bar */}
         <div className="flex items-center border border-gray-300 rounded-md p-2 bg-gray-100">

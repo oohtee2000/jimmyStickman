@@ -50,19 +50,8 @@ const Home = () => {
     </div>
   </div>
 </div>
-
-
-
-
       {/* Remaining sections */}
-      <div>
-        {/* Section 1: Hood & Jacket */}
-        
-
-        
-
-
-
+      <div>     
 {/* Section 1: Hood & Jacket */}
 <div className="w-screen h-screen flex flex-col sm:flex-row relative">
   <div className="absolute inset-0 bg-black opacity-20"></div>
@@ -153,27 +142,40 @@ const Home = () => {
 
       <ExploreMore />
 
-      <div className="flex justify-center items-center gap-14 py-12 bg-gray-50">
-        {/* Left Section: Text */}
-        <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-semibold text-gray-900">Sign Up</h2>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-medium text-gray-800 mt-2">With Jimmy Stickman</h2>
-          <p className="text-gray-700 mt-4 text-lg sm:text-xl md:text-2xl lg:text-3xl">
-            For 20% off welcome offer and more
-          </p>
-        </div>
+      <div className="flex flex-col items-center text-center gap-6 py-12 bg-gray-50 px-4 sm:px-8">
+  {/* Left Section: Text */}
+  <div>
+    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
+      Sign Up
+    </h2>
+    <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-medium text-gray-800 mt-2">
+      With Jimmy Stickman
+    </h2>
+    <p className="text-gray-700 mt-4 text-base sm:text-lg md:text-xl lg:text-2xl max-w-md mx-auto">
+      Enjoy a 20% welcome offer and exclusive deals.
+    </p>
+  </div>
+</div>
 
-        {/* Right Section: Form */}
-        <div className="w-[480px]">
-          <div className="flex items-center gap-3">
-            <input type="text" placeholder="Enter your email" className="w-full p-4 border border-gray-300 rounded-md" />
-            <button className="bg-black min-w-[130px] text-white px-6 py-4 rounded-md font-medium hover:bg-gray-800 transition">
-              Join Now
-            </button>
-          </div>
-        </div>
+
+       {/* Right Section: Form */}
+<div className="w-full max-w-[480px] px-4 sm:px-0 mb-8">
+  <div className="flex flex-col sm:flex-row items-center gap-3">
+    <input 
+      type="text" 
+      placeholder="Enter your email" 
+      className="w-full p-3 sm:p-4 border border-gray-300 rounded-md text-base sm:text-lg"
+    />
+    <button 
+      className="bg-black w-full sm:w-auto text-white px-6 py-3 sm:py-4 rounded-md font-medium hover:bg-gray-800 transition"
+    >
+      Join Now
+    </button>
+  </div>
+</div>
+
       </div>
-    </div>
+   
   );
 };
 

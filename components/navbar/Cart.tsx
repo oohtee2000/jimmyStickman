@@ -62,9 +62,7 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100">
-      <h2 className="p-3 font-bold text-gray-800 self-start text-lg sm:text-xl">
-        Shopping Cart
-      </h2>
+      
       <div className="bg-white p-4 sm:p-6 w-full max-w-full flex-1 overflow-y-auto max-h-[60vh]">
         {items.length > 0 ? (
           items.map((item) => (
