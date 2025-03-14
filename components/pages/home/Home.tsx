@@ -142,35 +142,36 @@ const Home = () => {
 
       <ExploreMore />
 
-      <div className="flex flex-col items-center text-center gap-6 py-12 bg-gray-50 px-4 sm:px-8">
+      <div className="flex flex-col lg:flex-row justify-center items-center text-center lg:text-left gap-12 lg:gap-20 py-16 lg:py-24 bg-gray-50 px-6 lg:px-16">
+
+          {/* modfd */}
   {/* Left Section: Text */}
-  <div>
-    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
+  <div className="max-w-lg">
+    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900">
       Sign Up
     </h2>
-    <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-medium text-gray-800 mt-2">
+    <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-gray-800 mt-4">
       With Jimmy Stickman
     </h2>
-    <p className="text-gray-700 mt-4 text-base sm:text-lg md:text-xl lg:text-2xl max-w-md mx-auto">
+    <p className="text-gray-700 mt-6 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl max-w-lg">
       Enjoy a 20% welcome offer and exclusive deals.
     </p>
   </div>
-</div>
 
-
-       {/* Right Section: Form */}
-<div className="w-full max-w-[480px] px-4 sm:px-0 mb-8">
-  <div className="flex flex-col sm:flex-row items-center gap-3">
-    <input 
-      type="text" 
-      placeholder="Enter your email" 
-      className="w-full p-3 sm:p-4 border border-gray-300 rounded-md text-base sm:text-lg"
-    />
-    <button 
-      className="bg-black w-full sm:w-auto text-white px-6 py-3 sm:py-4 rounded-md font-medium hover:bg-gray-800 transition"
-    >
-      Join Now
-    </button>
+  {/* Right Section: Form */}
+  <div className="w-full max-w-[500px]">
+    <div className="flex flex-col sm:flex-row items-center gap-4">
+      <input 
+        type="text" 
+        placeholder="Enter your email" 
+        className="w-full p-4 md:p-5 lg:p-6 border border-gray-300 rounded-lg text-lg md:text-xl"
+      />
+      <button 
+        className="bg-black w-full sm:w-auto text-white px-8 py-4 md:py-5 lg:py-6 rounded-lg font-semibold text-lg md:text-xl hover:bg-gray-800 transition"
+      >
+        Join Now
+      </button>
+    </div>
   </div>
 </div>
 
