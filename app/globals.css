@@ -36,3 +36,9 @@ body {
   background: var(--background);
   font-family: "Futura PT", Arial, Helvetica, sans-serif;
 }
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  position: relative;
+}

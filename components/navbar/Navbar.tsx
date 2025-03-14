@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import {
   UserOutlined,
   ShoppingCartOutlined,
@@ -9,6 +10,7 @@ import {
   CloseOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
+
 import Search from "./Search";
 import Cart from "./Cart";
 
@@ -18,6 +20,10 @@ const Navbar = () => {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null); // Reference for modal
+
+  const pathname = usePathname();
+  const isHomePage = pathname === "/"; // Check if home page
 
   const toggleModal = (name: ModalType | "user") => {
     if (name === "user") {
@@ -28,6 +34,25 @@ const Navbar = () => {
       setIsDropdownOpen(false);
     }
   };
+
+  // Close modal when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        setActiveModal(null);
+      }
+    };
+
+    if (activeModal) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activeModal]);
 
   const modalContent: Record<Exclude<ModalType, null>, React.ReactNode> = {
     search: <Search />,
@@ -42,7 +67,9 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="bg-white shadow-md relative z-50 w-full">
+    <header className={`w-full fixed top-0 left-0 z-[1050] backdrop-blur-md transition-all duration-300 ${
+      isHomePage ? "bg-white bg-opacity-30" : "bg-white shadow-md"
+    }`}>
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-3">
@@ -62,7 +89,6 @@ const Navbar = () => {
           {navItems.map(({ name, icon, badge }, index) => (
             <div key={index} className="relative">
               <button onClick={() => toggleModal(name as ModalType)} className="relative">  
-              
                 {badge && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
                     {badge}
@@ -79,7 +105,7 @@ const Navbar = () => {
               <UserOutlined className="text-2xl text-gray-600 hover:text-black transition" />
             </button>
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden z-50">
+              <div className="absolute right-0 flex flex-col w-48 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden z-50">
                 <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
                 <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Orders</a>
                 <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
@@ -90,45 +116,56 @@ const Navbar = () => {
         </nav>
       </div>
 
-      {/* Full-Screen Mobile Menu */}
+      {/* Mobile Menu Modal */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]">
-          <div className="bg-white w-full h-full flex flex-col items-center justify-center space-y-6 relative">
-            {/* Close Button */}
-            <button
-              className="absolute top-5 right-5 text-gray-600 text-3xl"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <CloseOutlined />
-            </button>
 
-            {navItems.map(({ name, icon, badge }, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  toggleModal(name as ModalType);
-                  setIsMobileMenuOpen(false);
-                }}
-                className="flex items-center space-x-2 text-gray-700 hover:text-black text-2xl"
-              >
-                {icon}
-                {badge && <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{badge}</span>}
-                <span className="capitalize">{name}</span>
+<div className="absolute right-0 top-[calc(100%-30px)] w-full sm:w-48 bg-white border border-gray-200 rounded-lg overflow-hidden z-[1100]">
+
+
+
+          <div className="w-full sm:w-2/3 md:w-1/2 bg-white h-full shadow-lg transform transition-transform duration-300">
+            {/* Header with Close Button */}
+            <div className="p-5 flex justify-between items-center border-b">
+              <h2 className="text-xl font-semibold">Menu</h2>
+              <button onClick={() => setIsMobileMenuOpen(false)} className="text-2xl text-gray-600 hover:text-black">
+                <CloseOutlined />
               </button>
-            ))}
+            </div>
 
-            <button onClick={() => toggleModal("user")} className="text-gray-700 hover:text-black text-2xl flex items-center space-x-2">
-              <UserOutlined />
-              <span>User</span>
-            </button>
+            {/* Menu Items */}
+            <div className="flex flex-col p-5 space-y-5">
+              {navItems.map(({ name, icon, badge }, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    toggleModal(name as ModalType);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="flex items-center justify-between text-lg font-medium text-gray-700 hover:text-black transition"
+                >
+                  <div className="flex items-center space-x-3">
+                    {icon}
+                    <span className="capitalize">{name}</span>
+                  </div>
+                  {badge && <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{badge}</span>}
+                </button>
+              ))}
+
+              <hr className="border-gray-300" />
+
+              <button onClick={() => toggleModal("user")} className="flex items-center space-x-3 text-lg font-medium text-gray-700 hover:text-black transition">
+                <UserOutlined />
+                <span>User</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Modal */}
+      {/* Modal with Click Outside Close */}
       {activeModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-[1000]">
-          <div className="w-2/3 md:w-1/2 bg-white h-full shadow-lg transform transition-transform duration-300">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-[1100]">
+          <div ref={modalRef} className="w-2/3 md:w-1/2 bg-white h-full shadow-lg transform transition-transform duration-300">
             <div className="p-4 flex justify-between items-center border-b">
               <h2 className="text-lg font-semibold capitalize">{activeModal}</h2>
               <button onClick={() => setActiveModal(null)}>

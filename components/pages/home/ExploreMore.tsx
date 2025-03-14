@@ -40,7 +40,6 @@ const ExploreMore = () => {
         <Swiper
           spaceBetween={16}
           slidesPerView={1.2}
-          pagination={{ clickable: true }}
           modules={[Pagination]}
           className="w-full"
         >
